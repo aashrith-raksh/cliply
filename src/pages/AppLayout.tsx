@@ -3,12 +3,10 @@ import { Outlet } from "react-router-dom";
 
 const AppLayout = () => {
   return (
-    <main className="bg-background min-h-screen">
-      <div className="container">
+    <main className="bg-background h-screen max-h-screen">
+      <div className="container h-full flex flex-col">
         <Header />
-        <section className="my-4">
           <Outlet />
-        </section>
       </div>
     </main>
   );
