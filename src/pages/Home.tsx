@@ -28,7 +28,7 @@ const Home = () => {
           placeholder="https://example.com/very/long/url"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1"
+          className="flex-1 placeholder:text-xs"
           required
         />
         <Button type="submit">Shorten</Button>
