@@ -1,10 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./pages/AppLayout";
-import Auth from "./pages/Auth";
 import RedirectLink from "./pages/RedirectLink";
 import Home from "./pages/Home";
 import Link from "./pages/Link";
 import { ThemeProvider } from "./Providers/ThemeProvider";
+import { LoginForm } from "./components/auth/LoginForm";
+import AuthLayout from "./pages/AuthLayout";
+import Register from "./components/Register";
 
 
 const router = createBrowserRouter([
@@ -13,9 +15,16 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { index:true, element: <Home /> },
-      { path: 'auth', element: <Auth /> },
       { path: 'link/:id', element: <Link /> },
       { path: ':id', element: <RedirectLink /> },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      { path: "login", element: <LoginForm /> },
+      { path: "register", element: <Register /> },
     ],
   },
 ]);

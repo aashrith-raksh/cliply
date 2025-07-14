@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [url, setUrl] = useState("");
+  const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted URL:", url);
-    // You can add your shortening logic here
+
+    navigate(`/auth?createNew=${url}`)
   };
 
   return (
