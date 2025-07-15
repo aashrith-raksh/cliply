@@ -6,9 +6,9 @@ import Link from "./pages/Link";
 import { ThemeProvider } from "./Providers/ThemeProvider";
 import { LoginForm } from "./components/auth/LoginForm";
 import AuthLayout from "./pages/AuthLayout";
-import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
 import GlobalProvier from "./Providers/GlobalProvier";
+import Register from "./components/auth/Register";
 
 const router = createBrowserRouter([
   {

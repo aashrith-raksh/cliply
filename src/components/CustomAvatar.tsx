@@ -7,12 +7,25 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import { LogOutIcon } from "lucide-react";
+import { useGlobalContext } from "@/store/global-state";
+import supabase from "@/db/supabase";
+import { toast } from "sonner";
 const CustomAvatar = () => {
+
+  const {user} = useGlobalContext();
+
+  async function handleLogout() {
+    const {error} = await supabase.auth.signOut()
+
+    if(error) toast(error.message)
+  }
+
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={user?.user_metadata.profile_pic} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -20,7 +33,7 @@ const CustomAvatar = () => {
         <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>My Links</DropdownMenuItem>
         <DropdownMenuItem className="mt-4">
-          <Button variant="link" className="w-full text-red-600 !justify-start !px-0">
+          <Button variant="link" className="w-full text-red-600 !justify-start !px-0" onClick={handleLogout}>
             <LogOutIcon className="text-inherit" />
             Logout
           </Button>

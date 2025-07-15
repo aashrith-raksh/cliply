@@ -18,3 +18,10 @@ type GlobalStateType = {
   user: AuthUser | null
   setUser: Dispatch<SetStateAction<AuthUser | null>>;
 }
+
+type signUpType = {
+  email: string;
+  password: string;
+  name: string;
+  file: File;
+};
