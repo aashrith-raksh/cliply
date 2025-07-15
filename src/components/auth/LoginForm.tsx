@@ -4,14 +4,45 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthHeader from "./AuthHeader";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { LoaderCircle } from "lucide-react";
+
+import { z } from "zod";
+
+const formSchema = z.object({
+  email: z.email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginFormData = z.infer<typeof formSchema>;
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const { register, handleSubmit, formState } = useForm<LoginFormData>({
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+      resolver: zodResolver(formSchema),
+    });
+  
+    const onSubmit = async (formData: LoginFormData) => {
+      await new Promise<void>((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 3000)
+      );
+      console.table(formData);
+    };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6">
           <AuthHeader/>
           <div className="flex flex-col gap-6">
@@ -21,11 +52,35 @@ export function LoginForm({
                 id="email"
                 type="email"
                 placeholder="m@example.com"
-                required
+                {...register("email")}
               />
+              {formState.errors.email && (
+                <p className="text-red-500 text-sm">
+                  {formState.errors.email.message}
+                </p>
+              )}
             </div>
-            <Button type="submit" className="w-full">
-              Login
+            <div className="grid gap-3">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+              />
+              {formState.errors.password && (
+                <p className="text-red-500 text-sm">
+                  {formState.errors.password.message}
+                </p>
+              )}
+            </div>
+            <Button
+              type="submit"
+              disabled={formState.isSubmitting}
+              className="w-full"
+            >
+              {formState.isSubmitting ? <LoaderCircle /> : "Submit"}
             </Button>
           </div>
         </div>

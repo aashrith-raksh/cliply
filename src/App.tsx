@@ -7,6 +7,7 @@ import { ThemeProvider } from "./Providers/ThemeProvider";
 import { LoginForm } from "./components/auth/LoginForm";
 import AuthLayout from "./pages/AuthLayout";
 import Register from "./components/Register";
+import { TestLogin } from "./components/auth/TestLogin";
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       { path: "login", element: <LoginForm /> },
+      { path: "login/test", element: <TestLogin /> },
       { path: "register", element: <Register /> },
     ],
   },
