@@ -7,6 +7,7 @@ import { ThemeProvider } from "./Providers/ThemeProvider";
 import { LoginForm } from "./components/auth/LoginForm";
 import AuthLayout from "./pages/AuthLayout";
 import Register from "./components/Register";
+import Dashboard from "./pages/Dashboard";
 
 
 const router = createBrowserRouter([
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { index:true, element: <Home /> },
+      { path:'dashboard', element: <Dashboard /> },
       { path: 'link/:id', element: <Link /> },
       { path: ':id', element: <RedirectLink /> },
     ],
