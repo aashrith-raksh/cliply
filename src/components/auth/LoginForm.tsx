@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 
 import { z } from "zod";
+import { signInWithEmail } from "@/lib/supabase-utils";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
+import type { AuthError } from "@supabase/supabase-js";
 
 const formSchema = z.object({
   email: z.email("Invalid email address"),
@@ -22,29 +25,40 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const { register, handleSubmit, formState } = useForm<LoginFormData>({
-      defaultValues: {
-        email: "",
-        password: "",
-      },
-      resolver: zodResolver(formSchema),
-    });
-  
-    const onSubmit = async (formData: LoginFormData) => {
-      await new Promise<void>((resolve) =>
-        setTimeout(() => {
-          resolve();
-        }, 3000)
-      );
-      console.table(formData);
-    };
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(formSchema),
+  });
+
+  const onSubmit = async (formData: LoginFormData) => {
+    try {
+      const data = await signInWithEmail(formData.email, formData.password);
+
+      // SAVE THE SESSION TO GLOBAL STATE
+      console.log(data);
+
+      const longLink = searchParams.get("createNew") ?? "";
+
+      navigate(`/dashboard/${longLink}`);
+    } catch (error) {
+      console.log((error as AuthError).message);
+      toast((error as AuthError).message)
+    }
+    console.table(formData);
+  };
+
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6">
-          <AuthHeader/>
+          <AuthHeader />
           <div className="flex flex-col gap-6">
             <div className="grid gap-3">
               <Label htmlFor="email">Email</Label>
@@ -85,6 +99,7 @@ export function LoginForm({
           </div>
         </div>
       </form>
+
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
