@@ -6,13 +6,15 @@ import { Outlet, useNavigate } from "react-router-dom";
 const AuthLayout = () => {
   const navigate = useNavigate();
 
+  console.log("auth rendered")
+
   const { user } = useGlobalContext();
 
   useEffect(() => {
     if (user) {
-      navigate(-1); 
+      navigate("/dashboard"); 
     }
-  }, [user, navigate]);
+  },[]);
 
   if(user) return null;
   return (
