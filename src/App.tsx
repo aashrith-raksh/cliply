@@ -8,17 +8,17 @@ import { LoginForm } from "./components/auth/LoginForm";
 import AuthLayout from "./pages/AuthLayout";
 import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
-
+import GlobalProvier from "./Providers/GlobalProvier";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <AppLayout />,
     children: [
-      { index:true, element: <Home /> },
-      { path:'dashboard', element: <Dashboard /> },
-      { path: 'link/:id', element: <Link /> },
-      { path: ':id', element: <RedirectLink /> },
+      { index: true, element: <Home /> },
+      { path: "dashboard", element: <Dashboard /> },
+      { path: "link/:id", element: <Link /> },
+      { path: ":id", element: <RedirectLink /> },
     ],
   },
   {
@@ -31,12 +31,14 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 function App() {
-  return <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router}/>
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <GlobalProvier>
+        <RouterProvider router={router} />
+      </GlobalProvier>
     </ThemeProvider>
-   
+  );
 }
 
 export default App;

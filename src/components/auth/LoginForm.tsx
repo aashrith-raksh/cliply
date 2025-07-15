@@ -13,6 +13,7 @@ import { signInWithEmail } from "@/lib/supabase-utils";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import type { AuthError } from "@supabase/supabase-js";
+import { useGlobalContext } from "@/store/global-state";
 
 const formSchema = z.object({
   email: z.email("Invalid email address"),
@@ -27,6 +28,7 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const {setUser} = useGlobalContext();
 
   const { register, handleSubmit, formState } = useForm<LoginFormData>({
     defaultValues: {
@@ -41,7 +43,7 @@ export function LoginForm({
       const data = await signInWithEmail(formData.email, formData.password);
 
       // SAVE THE SESSION TO GLOBAL STATE
-      console.log(data);
+      setUser(data.user)
 
       const longLink = searchParams.get("createNew") ?? "";
 
@@ -50,7 +52,6 @@ export function LoginForm({
       console.log((error as AuthError).message);
       toast((error as AuthError).message)
     }
-    console.table(formData);
   };
 
 
