@@ -7,7 +7,7 @@ import {
 import { useDashboardContext } from "@/store/dashboard-state";
 
 const Stats = () => {
-    const {totalLinksCreated} = useDashboardContext()
+    const {totalLinksCreated, totalClicks} = useDashboardContext()
   return (
     <div className="grid sm:grid-cols-2 gap-4 mb-16">
         <Card>
@@ -22,7 +22,7 @@ const Stats = () => {
           <CardHeader>
             <CardDescription>Total Clicks</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              $1,250.00
+              {totalClicks}
             </CardTitle>
           </CardHeader>
         </Card>
