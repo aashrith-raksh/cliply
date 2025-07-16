@@ -19,6 +19,22 @@ type GlobalStateType = {
   setUser: Dispatch<SetStateAction<AuthUser | null>>;
 }
 
+type URL_Type = {
+    created_at: string;
+    custom_url: string | null;
+    id: number;
+    original_url: string | null;
+    qr: string | null;
+    short_url: string | null;
+    user_id: string | null;
+}
+
+type DashboardStateType = {
+  urls: URL_Type[] | null;
+  totalClicks:number | null;
+  totalLinksCreated: number | null;
+}
+
 type signUpType = {
   email: string;
   password: string;

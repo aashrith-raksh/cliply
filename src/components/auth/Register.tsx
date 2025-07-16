@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { signUpNewUser } from "@/lib/supabase-utils";
 import { useNavigate } from "react-router-dom";
+import { signUpNewUser } from "@/lib/supabase/auth-utils";
 
 // Zod schema
 const signupSchema = z.object({

@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 
 import { z } from "zod";
-import { signInWithEmail } from "@/lib/supabase-utils";
+import { signInWithEmail } from "@/lib/supabase/auth-utils";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import type { AuthError } from "@supabase/supabase-js";

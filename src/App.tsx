@@ -9,6 +9,7 @@ import AuthLayout from "./pages/AuthLayout";
 import Dashboard from "./pages/Dashboard";
 import GlobalProvier from "./Providers/GlobalProvier";
 import Register from "./components/auth/Register";
+import DashboardStateProvider from "./Providers/DashboardStateProvider";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,9 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <GlobalProvier>
-        <RouterProvider router={router} />
+        <DashboardStateProvider>
+          <RouterProvider router={router} />
+        </DashboardStateProvider>
       </GlobalProvier>
     </ThemeProvider>
   );
