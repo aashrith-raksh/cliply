@@ -20,7 +20,7 @@ export async function getTotalClicksFromDB(urlIds: number[]) {
   for (const urlId of urlIds) {
     const { count, error } = await supabase
       .from("clicks")
-      .select("*", { count: 'exact', head: true }) // use count directly if supported
+      .select("*", { count: "exact", head: true }) // use count directly if supported
       .eq("url_id", urlId);
 
     if (error) {
@@ -28,8 +28,18 @@ export async function getTotalClicksFromDB(urlIds: number[]) {
       continue;
     }
 
-    totalClicks += count || 0; 
+    totalClicks += count || 0;
   }
 
   return totalClicks;
+}
+
+export async function deleteUrl(id: number) {
+  try {
+    const response = await supabase.from("urls").delete().eq("id", id);
+    return response
+  } catch (error) {
+    console.log((error as Error).message);
+    throw new Error("Error while loading URLs");
+  }
 }

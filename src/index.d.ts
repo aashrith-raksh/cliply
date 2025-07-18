@@ -33,6 +33,7 @@ type DashboardStateType = {
   urls: URL_Type[] | null;
   totalClicks:number | null;
   totalLinksCreated: number | null;
+  fetchAllUrls: () => void;
 }
 
 type signUpType = {

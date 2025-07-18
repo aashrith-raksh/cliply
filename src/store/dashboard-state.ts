@@ -5,6 +5,7 @@ export const dashboardContext = createContext<DashboardStateType>({
   urls: [],
   totalClicks: null,
   totalLinksCreated: null,
+  fetchAllUrls:() => {}
 });
 
 export function useDashboardContext() {
