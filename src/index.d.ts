@@ -42,3 +42,11 @@ type signUpType = {
   name: string;
   file: File;
 };
+
+interface UploadUrlData {
+  longUrl: string;
+  customUrl?: string; 
+  title: string;
+  userId: string;
+}
+

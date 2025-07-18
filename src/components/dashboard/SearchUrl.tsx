@@ -1,5 +1,6 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import CreateLinkForm from "./CreateLinkForm";
 
 const SearchUrl = () => {
   return (
@@ -13,7 +14,7 @@ const SearchUrl = () => {
         <Button className="grow" variant={"outline"}>
           Filter
         </Button>
-        <Button className="grow">Create Link</Button>
+        <CreateLinkForm/>
       </div>
     </section>
   );

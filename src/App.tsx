@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import GlobalProvier from "./Providers/GlobalProvier";
 import Register from "./components/auth/Register";
 import DashboardStateProvider from "./Providers/DashboardStateProvider";
+import Test from "./components/Test";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <Dashboard /> },
       { path: "link/:id", element: <Link /> },
       { path: ":id", element: <RedirectLink /> },
+      { path: "/test", element: <Test /> },
     ],
   },
   {

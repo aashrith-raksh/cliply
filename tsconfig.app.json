@@ -30,5 +30,5 @@
       ]
     }
   },
-  "include": ["src", "temp.js"]
+  "include": ["src"]
 }
