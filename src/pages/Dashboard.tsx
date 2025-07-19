@@ -1,4 +1,4 @@
-import Links from "@/components/dashboard/Links";
+import LinksList from "@/components/dashboard/LinksList";
 import SearchUrl from "@/components/dashboard/SearchUrl";
 import Stats from "@/components/dashboard/Stats";
 import Section from "@/components/Section";
@@ -8,7 +8,7 @@ const Dashboard = () => {
     <Section>
       <Stats/>
       <SearchUrl/>
-      <Links/>
+      <LinksList/>
     </Section>
   );
 };
