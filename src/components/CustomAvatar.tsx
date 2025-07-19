@@ -12,19 +12,16 @@ import supabase from "@/db/supabase";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 const CustomAvatar = () => {
-
-  const {user} = useGlobalContext();
-  const navigate = useNavigate()
+  const { user } = useGlobalContext();
+  const navigate = useNavigate();
 
   async function handleLogout() {
-    const {error} = await supabase.auth.signOut()
-    if(error) toast(error.message)
-    navigate("/", {replace:true});
+    const { error } = await supabase.auth.signOut();
+    if (error) toast(error.message);
+    navigate("/", { replace: true });
     window.location.reload();
-    
   }
 
-  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,9 +32,21 @@ const CustomAvatar = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>My Links</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
+            My Links
+          </Button>
+        </DropdownMenuItem>
         <DropdownMenuItem className="mt-4">
-          <Button variant="link" className="w-full text-red-600 !justify-start !px-0" onClick={handleLogout}>
+          <Button
+            variant="link"
+            className="w-full text-red-600 !justify-start !px-0"
+            onClick={handleLogout}
+          >
             <LogOutIcon className="text-inherit" />
             Logout
           </Button>
