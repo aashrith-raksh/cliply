@@ -10,7 +10,6 @@ import { Button } from "../ui/button";
 import { Copy, DownloadIcon } from "lucide-react";
 import DeleteLink from "./DeleteLink";
 
-
 const Links = () => {
   const { urls } = useDashboardContext();
 
@@ -52,14 +51,16 @@ const Links = () => {
                 className="flex !flex-row items-center gap-12 p-6"
               >
                 {/* QR Image */}
-                <CardHeader className="grow max-w-2/12 !px-0 rounded-sm border">
+                <CardHeader className="max-w-2/12 flex-1 p-2 bg-white rounded-sm flex">
                   <img
                     src={url.qr!}
                     alt={`QR for ${linkLabel}`}
-                    className="object-cover rounded"
+                    className="w-full object-contain mx-auto"
+                    width={96}
+                    height={96}
                   />
                 </CardHeader>
-                <CardContent className="!px-0">
+                <CardContent className="!px-0 flex-1">
                   <Link
                     to={linkHref}
                     className="flex flex-col flex-1 hover:underline cursor-pointer"
@@ -73,7 +74,7 @@ const Links = () => {
                   </p>
                   <p className="text-muted-foreground text-xs">{`${url.original_url}`}</p>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="max-sm:flex max-sm:flex-col px-0">
                   <Button
                     variant={"ghost"}
                     onClick={() => {
@@ -90,7 +91,7 @@ const Links = () => {
                   >
                     <DownloadIcon />
                   </Button>
-                  <DeleteLink urlId={url.id}/>
+                  <DeleteLink urlId={url.id} />
                 </CardFooter>
               </Card>
             );
