@@ -50,3 +50,5 @@ interface UploadUrlData {
   userId: string;
 }
 
+type DeviceType = "desktop" | "mobile" | "tablet"
+

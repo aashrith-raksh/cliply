@@ -1,5 +1,6 @@
 import supabase from "@/db/supabase";
 import type { UploadUrlData } from "@/index";
+import { getDeviceType } from "../utils";
 
 export async function getAllUrlsOfCurrentUser(userId: string) {
   const { data, error } = await supabase
@@ -74,7 +75,7 @@ export async function insertUrl(
     const response = await supabase.from("urls").insert({
       title,
       original_url: longUrl,
-      custom_url:customUrl,
+      custom_url: customUrl,
       user_id: userId,
       short_url: shortUrl,
       qr: qrPublicUrl,
@@ -84,4 +85,42 @@ export async function insertUrl(
     console.log((error as Error).message);
     throw new Error("Error while loading URLs");
   }
+}
+
+export async function fetchUrlDetails(id: string) {
+  const { data, error } = await supabase
+    .from("urls")
+    .select("id, original_url")
+    .or(`custom_url.eq.${id},short_url.eq.${id}`)
+    .single();
+
+  if (error) {
+    console.log(error.message);
+    throw new Error("Error while fetching orignal_url");
+  }
+
+  return data;
+}
+
+export async function updateClicksForUrl(urlId: number) {
+  const deviceType = getDeviceType();
+
+  const geo = await fetch("https://ipapi.co/json/");
+  const { country, city } = await geo.json();
+
+  const { error } = await supabase.from("clicks").insert({
+    device: deviceType,
+    country,
+    city,
+    url_id: urlId,
+  });
+
+  if (error) {
+    console.log(error.message);
+    throw new Error("Error while inserting new Click record");
+  }
+
+  return {
+    success: true
+  };
 }
