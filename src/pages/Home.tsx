@@ -1,19 +1,24 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "@/store/global-state";
 
 const Home = () => {
-  const [url, setUrl] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user } = useGlobalContext();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  const data = new FormData(e.currentTarget);
+  const url = data.get("url") as string;
 
-    navigate(`/auth?createNew=${url}`)
+    if (user) {
+      navigate(`/dashboard?createNew=${url}`);
+    } else {
+      navigate(`/auth/login?createNew=${url}`);
+    }
   };
-
   return (
     <Section className="gap-12 justify-center items-center">
       <div className="text-center">
@@ -27,9 +32,8 @@ const Home = () => {
       <form onSubmit={handleSubmit} className="flex gap-2 w-6/12">
         <Input
           type="url"
-          placeholder="https://example.com/very/long/url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          placeholder="Enter your very long URL"
+          name="url"
           className="flex-1 placeholder:text-xs"
           required
         />

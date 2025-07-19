@@ -18,7 +18,14 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "dashboard", element: <Dashboard /> },
+      {
+        path: "dashboard",
+        element: (
+          <DashboardStateProvider>
+            <Dashboard />
+          </DashboardStateProvider>
+        ),
+      },
       { path: "link/:id", element: <Link /> },
       { path: ":id", element: <RedirectLink /> },
       { path: "/test", element: <Test /> },
@@ -38,9 +45,9 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <GlobalProvier>
-        <DashboardStateProvider>
-          <RouterProvider router={router} />
-        </DashboardStateProvider>
+        {/* <DashboardStateProvider> */}
+        <RouterProvider router={router} />
+        {/* </DashboardStateProvider> */}
       </GlobalProvier>
     </ThemeProvider>
   );

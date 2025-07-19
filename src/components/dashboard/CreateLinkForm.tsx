@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { useDashboardContext } from "@/store/dashboard-state";
 import { QRCodeCanvas } from "qrcode.react";
 import VerticalLine from "../VerticalLine";
+import { useSearchParams } from "react-router-dom";
 // ✅ Schema
 const formSchema = z.object({
   longUrl: z.string().url({ message: "Enter a valid URL" }),
@@ -60,7 +61,9 @@ async function generateFileFromCanvas(canvas:HTMLCanvasElement) {
 }
 
 export default function CreateLinkForm() {
-  const [open, setOpen] = useState(false);
+  const [searchParams] = useSearchParams()
+  const openForm = !!searchParams.get("createNew")
+  const [open, setOpen] = useState(openForm);
 
   const { user } = useGlobalContext();
   const { fetchAllUrls } = useDashboardContext();

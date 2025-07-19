@@ -69,9 +69,9 @@ const Links = () => {
                       {url.title || "Untitled"}
                     </h2>
                   </Link>
-                  <p className="mb-6 !text-blue-400 md:text-sm text-xs">
+                  <a className="mb-6 inline-block mt-0 !text-blue-400 md:text-sm text-xs hover:underline" href={url.original_url!}>
                     {fullLinkLabel}
-                  </p>
+                  </a>
                   <p className="text-muted-foreground text-xs">{`${url.original_url}`}</p>
                 </CardContent>
                 <CardFooter className="max-sm:flex max-sm:flex-col px-0">

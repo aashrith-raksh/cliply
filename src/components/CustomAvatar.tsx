@@ -10,14 +10,18 @@ import { LogOutIcon } from "lucide-react";
 import { useGlobalContext } from "@/store/global-state";
 import supabase from "@/db/supabase";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 const CustomAvatar = () => {
 
   const {user} = useGlobalContext();
+  const navigate = useNavigate()
 
   async function handleLogout() {
     const {error} = await supabase.auth.signOut()
-
     if(error) toast(error.message)
+    navigate("/", {replace:true});
+    window.location.reload();
+    
   }
 
   

@@ -47,7 +47,7 @@ export function LoginForm({
 
       const longLink = searchParams.get("createNew") ?? "";
 
-      navigate(`/dashboard/${longLink}`);
+      navigate(`/dashboard?createNew=${longLink}`);
     } catch (error) {
       console.log((error as AuthError).message);
       toast((error as AuthError).message)
