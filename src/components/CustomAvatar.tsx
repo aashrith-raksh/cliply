@@ -32,14 +32,12 @@ const CustomAvatar = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>
-          <Button
-            onClick={() => {
-              navigate("/dashboard");
-            }}
-          >
-            My Links
-          </Button>
+        <DropdownMenuItem
+          onClick={() => {
+            navigate("/dashboard");
+          }}
+        >
+          My Links
         </DropdownMenuItem>
         <DropdownMenuItem className="mt-4">
           <Button
