@@ -28,9 +28,9 @@ const DeleteLink = ({urlId}:{urlId:number}) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant={"ghost"}>
-          <Trash2Icon />
-        </Button>
+          <div className="p-3 rounded-md hover:bg-muted/40" >
+            <Trash2Icon size={16} />
+          </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
