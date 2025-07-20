@@ -1,6 +1,6 @@
 import supabase from "@/db/supabase";
-import type { UploadUrlData } from "@/index";
-import { getDeviceType } from "../utils";
+import type { City, UploadUrlData } from "@/index";
+import { generateClicksChartDataTemplate, getDeviceType } from "../utils";
 
 export async function getAllUrlsOfCurrentUser(userId: string) {
   const { data, error } = await supabase
@@ -121,6 +121,41 @@ export async function updateClicksForUrl(urlId: number) {
   }
 
   return {
-    success: true
+    success: true,
   };
+}
+
+export async function generateClicksChartData(customUrl: string) {
+  try {
+    const clicksChartDataTemplate = generateClicksChartDataTemplate();
+  
+    const url = await fetchUrlDetails(customUrl);
+  
+    const clicks = await getClicksByUrlId(url.id);
+  
+    for (const click of clicks) {
+      const monthIndex = new Date(click.created_at).getMonth();
+      const city:City = (click.city!.toLocaleLowerCase() as City);
+      clicksChartDataTemplate[monthIndex][city] += 1;
+    }
+  
+    return clicksChartDataTemplate;
+  } catch (error) {
+    console.log((error as Error).message);
+    throw new Error("Error while fetching clicks chart data")
+  }
+}
+
+async function getClicksByUrlId(urlId: number) {
+  const { data, error } = await supabase
+    .from("clicks")
+    .select("*")
+    .eq("url_id", urlId);
+
+  if (error) {
+    console.log(error.message);
+    throw new Error("Error while loading clicks data for URL");
+  } else {
+    return data;
+  }
 }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import type { URL_Type } from "..";
 import Section from "@/components/Section";
 import LinkCard from "@/components/link/LinkCard";
+import LinkStats from "@/components/link/LinkStats";
 
 const Link = () => {
   const { id: shortUrl } = useParams();
@@ -13,11 +14,11 @@ const Link = () => {
     fetchUrlDetails(shortUrl!).then((url) => setUrl(url));
   }, []);
   return (
-    <Section className="!flex-row">
+    <Section className="!flex-row gap-8 bg-muted">
       {url ? (
         <>
           <LinkCard url={url} variant={"vertical"} />
-          
+          <LinkStats />
         </>
       ) : (
         <p>Loading URL details...</p>

@@ -52,3 +52,11 @@ interface UploadUrlData {
 
 type DeviceType = "desktop" | "mobile" | "tablet"
 
+type City = "hyderabad" | "mumbai" | "delhi" | "bangalore";
+
+type ChartEntry = {
+  [key in City]: number;
+} & {
+  month: string;
+};
+

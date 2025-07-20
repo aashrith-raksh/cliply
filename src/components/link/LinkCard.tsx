@@ -29,7 +29,7 @@ const LinkCard = ({
       className={cn(
         "p-6",
         isVertical
-          ? "gap-6 max-w-4/12"
+          ? "gap-6 max-w-4/12 self-start"
           : "!flex-row items-center gap-12"
       )}
     >
