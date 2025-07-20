@@ -19,7 +19,7 @@ const LinkCard = ({
   const linkLabel = url.custom_url || url.short_url;
   const fullLinkLabel = `${import.meta.env.VITE_BASE_URL}/${linkLabel}`;
 
-  const linkHref = `/link/${url.custom_url ?? url.short_url}`;
+  const linkHref = `/link/${linkLabel}`;
 
   const isVertical = variant === "vertical";
 
