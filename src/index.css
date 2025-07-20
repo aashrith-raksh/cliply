@@ -1,13 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-
-
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-poppins:var(--font-poppins);
+  --font-poppins: var(--font-poppins);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -46,7 +43,7 @@
 }
 
 :root {
-  --font-poppins:'Poppins', sans-serif;
+  --font-poppins: "Poppins", sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -124,8 +121,8 @@
   }
 }
 
-@layer components{
-  .container{
-    @apply max-w-7xl mx-auto p-2
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto p-2;
   }
 }

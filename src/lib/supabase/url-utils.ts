@@ -1,6 +1,6 @@
 import supabase from "@/db/supabase";
 import type { City, UploadUrlData } from "@/index";
-import { generateClicksChartDataTemplate, getDeviceType } from "../utils";
+import { generateClicksChartDataTemplate, generateDevicesChartDataTemplate, getDeviceType } from "../utils";
 
 export async function getAllUrlsOfCurrentUser(userId: string) {
   const { data, error } = await supabase
@@ -145,6 +145,31 @@ export async function generateClicksChartData(customUrl: string) {
     throw new Error("Error while fetching clicks chart data")
   }
 }
+
+export async function generateDevicesChartData(customUrl: string) {
+  try {
+    const deviceChartDataTemplate = generateDevicesChartDataTemplate();
+  
+    const url = await fetchUrlDetails(customUrl);
+  
+    const clicks = await getClicksByUrlId(url.id);
+  
+    for (const click of clicks) {
+      for(const deviceType of deviceChartDataTemplate){
+        if(deviceType.device === click.device){
+          deviceType.clicks += 1
+        }
+      }
+    }
+  
+    return deviceChartDataTemplate;
+  } catch (error) {
+    console.log((error as Error).message);
+    throw new Error("Error while fetching device chart data")
+  }
+}
+
+
 
 async function getClicksByUrlId(urlId: number) {
   const { data, error } = await supabase

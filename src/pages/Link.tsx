@@ -1,5 +1,5 @@
 import { fetchUrlDetails } from "@/lib/supabase/url-utils";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { URL_Type } from "..";
 import Section from "@/components/Section";
@@ -14,7 +14,7 @@ const Link = () => {
     fetchUrlDetails(shortUrl!).then((url) => setUrl(url));
   }, []);
   return (
-    <Section className="!flex-row gap-8 bg-muted">
+    <Section className="!flex-row gap-8 bg-muotated">
       {url ? (
         <>
           <LinkCard url={url} variant={"vertical"} />

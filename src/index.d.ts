@@ -60,3 +60,9 @@ type ChartEntry = {
   month: string;
 };
 
+type DeviceChartEntry = {
+  device:DeviceType;
+  clicks:number;
+  fill:string
+}
+
