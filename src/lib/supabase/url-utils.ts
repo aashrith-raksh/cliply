@@ -90,7 +90,7 @@ export async function insertUrl(
 export async function fetchUrlDetails(id: string) {
   const { data, error } = await supabase
     .from("urls")
-    .select("id, original_url")
+    .select("*")
     .or(`custom_url.eq.${id},short_url.eq.${id}`)
     .single();
 

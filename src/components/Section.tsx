@@ -9,7 +9,7 @@ export default function Section({
   className?: string;
 }) {
   return (
-    <section className={cn("mt-6 rounded-xl flex-1 flex flex-col", className)}>
+    <section className={cn("mt-6 rounded-xl flex-1 flex flex-col bg-muted", className)}>
       {children}
     </section>
   );

@@ -1,6 +1,6 @@
 import { useDashboardContext } from "@/store/dashboard-state";
 import { Card } from "@/components/ui/card";
-import LinkCard from "./LinkCard";
+import LinkCard from "../link/LinkCard";
 
 const LinksList = () => {
   const { urls } = useDashboardContext();

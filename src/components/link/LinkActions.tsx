@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { Copy, DownloadIcon } from "lucide-react";
-import DeleteLink from "./DeleteLink";
+import DeleteLink from "../dashboard/DeleteLink";
 import { toast } from "sonner";
 import type { URL_Type } from "@/index";
 
