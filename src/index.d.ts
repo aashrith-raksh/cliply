@@ -33,7 +33,8 @@ type DashboardStateType = {
   urls: URL_Type[] | null;
   totalClicks:number | null;
   totalLinksCreated: number | null;
-  fetchAllUrls: () => void;
+  fetchAllUrls: (latestFirst?:boolean) => Promise<URL_Type[]>;
+  setFetchedUrls: Dispatch<SetStateAction<URL_Type[] | null>>
 }
 
 type signUpType = {

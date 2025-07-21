@@ -7,8 +7,6 @@ import {
 } from "@/lib/supabase/url-utils";
 import { useGlobalContext } from "@/store/global-state";
 
-
-
 const DashboardStateProvider = ({ children }: { children: ReactNode }) => {
   const [fetchedUrls, setFetchedUrls] = useState<URL_Type[] | null>(null);
 
@@ -19,15 +17,14 @@ const DashboardStateProvider = ({ children }: { children: ReactNode }) => {
 
   const { user } = useGlobalContext();
 
-  async function fetchAllUrls() {
-      try {
-        const data = await getAllUrlsOfCurrentUser(user!.id);
-        setFetchedUrls(data);
-        setTotalLinksCreated(data.length);
-      } catch (error) {
-        console.log((error as Error).message);
-      }
+  async function fetchAllUrls(latestFirst?:boolean) {
+    try {
+      const data = await getAllUrlsOfCurrentUser(user!.id, latestFirst);
+      return data
+    } catch (error) {
+      console.log((error as Error).message);
     }
+  }
 
   useEffect(() => {
     async function getTotalClicks() {
@@ -41,10 +38,19 @@ const DashboardStateProvider = ({ children }: { children: ReactNode }) => {
   }, [fetchedUrls]);
 
   useEffect(() => {
-    fetchAllUrls();
+    fetchAllUrls(true).then((data) => {
+      setFetchedUrls(data!);
+      setTotalLinksCreated(data!.length);
+    });
   }, []);
 
-  const value = { urls: fetchedUrls, totalClicks, totalLinksCreated, fetchAllUrls };
+  const value = {
+    urls: fetchedUrls,
+    totalClicks,
+    totalLinksCreated,
+    fetchAllUrls,
+    setFetchedUrls
+  };
   return (
     <dashboardContext.Provider value={value}>
       {children}

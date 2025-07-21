@@ -12,15 +12,15 @@ import {
 import { Trash2Icon } from "lucide-react";
 import { deleteUrl } from "@/lib/supabase/url-utils";
 import { useDashboardContext } from "@/store/dashboard-state";
-import { Button } from "../ui/button";
 
 const DeleteLink = ({urlId}:{urlId:number}) => {
-  const { fetchAllUrls } = useDashboardContext();
+  const { fetchAllUrls, setFetchedUrls } = useDashboardContext();
 
   async function handleDeleteLink(id: number) {
     try {
       await deleteUrl(id);
-      fetchAllUrls();
+      const latestFirst = true
+      fetchAllUrls(latestFirst).then(data => setFetchedUrls(data));
     } catch (error) {
       console.log((error as Error).message);
     }

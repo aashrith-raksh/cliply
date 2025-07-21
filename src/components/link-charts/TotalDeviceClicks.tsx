@@ -45,6 +45,10 @@ export function TotalDeviceClicksChart() {
   const params = useParams();
   const urlIdentifier = params.id;
 
+  let showChart = false;
+  if (data) {
+    showChart = data[0].clicks > 0 || data[2].clicks > 0 || data[2].clicks > 0;
+  }
   useEffect(() => {
     generateDevicesChartData(urlIdentifier!)
       .then((chartData) => setData(chartData))
@@ -57,18 +61,21 @@ export function TotalDeviceClicksChart() {
         <CardDescription>{`January - ${currentMonth} ${currentYear}`}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
-          <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent />}
-            />
-            <Pie data={data} dataKey="clicks" nameKey="device" />
-          </PieChart>
-        </ChartContainer>
+        {showChart ? (
+          <ChartContainer
+            config={chartConfig}
+            className="mx-auto aspect-square max-h-[250px]"
+          >
+            <PieChart>
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <Pie data={data} dataKey="clicks" nameKey="device" />
+            </PieChart>
+          </ChartContainer>
+        ) : (
+          <div className="min-h-60 grid place-items-center">
+            <p>No clicks yet...</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

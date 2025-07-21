@@ -45,29 +45,29 @@ const isValidUrl = (url: string) => {
   }
 };
 
-async function generateFileFromCanvas(canvas:HTMLCanvasElement) {
+async function generateFileFromCanvas(canvas: HTMLCanvasElement) {
   const blob = await new Promise<Blob>((resolve, reject) => {
-      if (!canvas) return reject("Canvas not found");
+    if (!canvas) return reject("Canvas not found");
 
-      canvas.toBlob((blob) => {
-        if (!blob) return reject("Failed to convert canvas to blob");
-        resolve(blob);
-      }, "image/png");
-    });
+    canvas.toBlob((blob) => {
+      if (!blob) return reject("Failed to convert canvas to blob");
+      resolve(blob);
+    }, "image/png");
+  });
 
-    const imageFile = new File([blob], "qr.png", { type: "image/png" });
+  const imageFile = new File([blob], "qr.png", { type: "image/png" });
 
-    return imageFile
+  return imageFile;
 }
 
 export default function CreateLinkForm() {
-  const [searchParams] = useSearchParams()
-  const openForm = !!searchParams.has("createNew")
-  const initialLongUrl = searchParams.get("createNew")
+  const [searchParams] = useSearchParams();
+  const openForm = !!searchParams.has("createNew");
+  const initialLongUrl = searchParams.get("createNew");
   const [open, setOpen] = useState(openForm);
 
   const { user } = useGlobalContext();
-  const { fetchAllUrls } = useDashboardContext();
+  const { fetchAllUrls,setFetchedUrls } = useDashboardContext();
   const qrRef = useRef<HTMLCanvasElement | null>(null);
 
   const form = useForm<FormSchema>({
@@ -84,8 +84,8 @@ export default function CreateLinkForm() {
   async function handleFormSubmit(data: FormSchema) {
     const canvas = qrRef.current;
 
-    const qrFile = await generateFileFromCanvas(canvas!)
-    
+    const qrFile = await generateFileFromCanvas(canvas!);
+
     try {
       await insertUrl(
         {
@@ -100,7 +100,9 @@ export default function CreateLinkForm() {
       console.log((error as Error).message);
       toast((error as Error).message);
     }
-    fetchAllUrls();
+    const latestFirst = true;
+
+    fetchAllUrls(latestFirst).then(data => setFetchedUrls(data!));
     setOpen(false);
     form.reset();
   }

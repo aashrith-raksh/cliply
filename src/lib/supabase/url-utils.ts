@@ -2,11 +2,18 @@ import supabase from "@/db/supabase";
 import type { City, UploadUrlData } from "@/index";
 import { generateClicksChartDataTemplate, generateDevicesChartDataTemplate, getDeviceType } from "../utils";
 
-export async function getAllUrlsOfCurrentUser(userId: string) {
-  const { data, error } = await supabase
+export async function getAllUrlsOfCurrentUser(userId: string, latestFirst?:boolean) {
+  const query = supabase
     .from("urls")
     .select("*")
     .eq("user_id", userId);
+
+  if (latestFirst) {
+    query.order("created_at", { ascending: false });
+  }
+
+  const { data, error } = await query
+
 
   if (error) {
     console.log(error.message);
