@@ -62,7 +62,8 @@ async function generateFileFromCanvas(canvas:HTMLCanvasElement) {
 
 export default function CreateLinkForm() {
   const [searchParams] = useSearchParams()
-  const openForm = !!searchParams.get("createNew")
+  const openForm = !!searchParams.has("createNew")
+  const initialLongUrl = searchParams.get("createNew")
   const [open, setOpen] = useState(openForm);
 
   const { user } = useGlobalContext();
@@ -72,7 +73,7 @@ export default function CreateLinkForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      longUrl: "",
+      longUrl: initialLongUrl ?? "",
       customUrl: "",
       title: "",
     },
