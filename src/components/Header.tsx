@@ -8,7 +8,7 @@ const Header = () => {
   const { user } = useGlobalContext();
   const navigate = useNavigate();
   return (
-    <header className="bg-muted mt-4 px-8 py-3 border border-white/20  rounded-full flex justify-between items-center drop-shadow-foreground/10 drop-shadow-lg">
+    <header className="relative z-10 bg-muted mt-4 px-8 py-3 border border-white/20  rounded-full flex justify-between items-center drop-shadow-foreground/10 drop-shadow-lg">
       <Link to="/">
         <span className="text-lg text-foreground">LOGO</span>
       </Link>
