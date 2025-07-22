@@ -10,7 +10,7 @@ import { LoaderCircle } from "lucide-react";
 
 import { z } from "zod";
 import { signInWithEmail } from "@/lib/supabase/auth-utils";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import type { AuthError } from "@supabase/supabase-js";
 import { useGlobalContext } from "@/store/global-state";
@@ -27,8 +27,9 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
-  const {setUser} = useGlobalContext();
+  const { setUser } = useGlobalContext();
 
   const { register, handleSubmit, formState } = useForm<LoginFormData>({
     defaultValues: {
@@ -43,17 +44,21 @@ export function LoginForm({
       const data = await signInWithEmail(formData.email, formData.password);
 
       // SAVE THE SESSION TO GLOBAL STATE
-      setUser(data.user)
+      setUser(data.user);
 
       const longLink = searchParams.get("createNew") ?? "";
+      const from = location.state?.from?.pathname || "/dashboard";
 
-      navigate(`/dashboard?createNew=${longLink}`);
+      if (longLink) {
+        navigate(`/dashboard?createNew=${longLink}`);
+      } else {
+        navigate(from, { replace: true });
+      }
     } catch (error) {
       console.log((error as AuthError).message);
-      toast((error as AuthError).message)
+      toast((error as AuthError).message);
     }
   };
-
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
