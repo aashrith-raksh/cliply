@@ -1,5 +1,3 @@
-"use client";
-
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
 import {
@@ -16,12 +14,11 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { monthNames } from "@/lib/constant";
-import { useEffect, useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { generateClicksChartData } from "@/lib/supabase/url-utils";
 import { useParams } from "react-router-dom";
-import { toast } from "sonner";
 import type { ChartEntry } from "@/index";
+import { useFetchChartData } from "@/hooks/useFetchChartData";
 
 const chartConfig = {
   hyderabad: {
@@ -46,15 +43,13 @@ const currentMonth = monthNames[new Date().getMonth()];
 const currentYear = new Date().getFullYear();
 
 export function MonthlyCityClicksChart() {
-  const [data, setData] = useState<ChartEntry[] | null>(null);
   const params = useParams();
   const urlIdentifier = params.id;
+  const [data] = useFetchChartData<ChartEntry[]>(
+    generateClicksChartData,
+    urlIdentifier
+  );
 
-  useEffect(() => {
-    generateClicksChartData(urlIdentifier!)
-      .then((charData) => setData(charData))
-      .catch((e: Error) => toast(e.message));
-  }, []);
   return (
     <Card>
       <CardHeader>
@@ -112,7 +107,9 @@ export function MonthlyCityClicksChart() {
             </LineChart>
           </ChartContainer>
         ) : (
-          <LoaderCircle className="animate-spin w-10 h-auto text-blue-500 stroke-[1.2]" />
+          <div className="min-h-60 grid place-items-center">
+            <LoaderCircle className="animate-spin w-10 h-auto text-blue-500 stroke-[1.2]" />
+          </div>
         )}
       </CardContent>
     </Card>
