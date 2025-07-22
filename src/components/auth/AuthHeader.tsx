@@ -13,7 +13,7 @@ const AuthHeader = () => {
               </div>
               <span className="sr-only">Acme Inc.</span>
             </Link>
-            <h1 className="text-xl font-bold">Welcome to &lt;company name&gt;</h1>
+            <h1 className="text-xl font-bold">Welcome to <span className='text-4xl font-logo'>Cliply</span></h1>
             <div className="text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link to="/auth/register" className="underline underline-offset-4">
