@@ -45,9 +45,9 @@ const currentYear = new Date().getFullYear();
 export function MonthlyCityClicksChart() {
   const params = useParams();
   const urlIdentifier = params.id;
-  const [data] = useFetchChartData<ChartEntry[]>(
+  const [data] = useFetchChartData<ChartEntry[], [string]>(
     generateClicksChartData,
-    urlIdentifier
+    urlIdentifier!,
   );
 
   return (

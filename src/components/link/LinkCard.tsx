@@ -5,10 +5,10 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import LinkActions from "./LinkActions";
-import type { URL_Type } from "@/index";
 import LinkContent from "./LinkContent";
 import LinkQR from "./LinkQR";
 import { cn } from "@/lib/utils";
+import type { URL_Type } from "@/index";
 const LinkCard = ({
   url,
   variant = "default",

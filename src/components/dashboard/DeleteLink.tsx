@@ -20,7 +20,7 @@ const DeleteLink = ({urlId}:{urlId:number}) => {
     try {
       await deleteUrl(id);
       const latestFirst = true
-      fetchAllUrls(latestFirst).then(data => setFetchedUrls(data));
+      fetchAllUrls(latestFirst).then(data => setFetchedUrls(data!));
     } catch (error) {
       console.log((error as Error).message);
     }

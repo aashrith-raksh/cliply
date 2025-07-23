@@ -43,9 +43,9 @@ const currentYear = new Date().getFullYear();
 export function TotalDeviceClicksChart() {
   const params = useParams();
   const urlIdentifier = params.id;
-  const [data] = useFetchChartData<DeviceChartEntry[]>(
+  const [data] = useFetchChartData<DeviceChartEntry[], [string]>(
     generateDevicesChartData,
-    urlIdentifier
+    urlIdentifier!
   );
 
   const isLoading = data == null;

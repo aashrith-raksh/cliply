@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 type LinkContentProps = {
   fullLinkLabel: string;
-  linkTitle: string;
+  linkTitle: string | null;
   linkHref: string;
   originalUrl: string;
 };
